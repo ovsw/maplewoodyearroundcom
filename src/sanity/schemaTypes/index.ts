@@ -21,6 +21,7 @@ import cardList from './modules/card-list'
 import customHtml from './modules/custom-html'
 import heroSplit from './modules/hero.split'
 import heroVideo from './modules/hero.video'
+import heroVideoZoomGrid from './modules/hero.video-zoom-grid'
 import logoList from './modules/logo-list'
 import personList from './modules/person-list'
 import prose from './modules/prose'
@@ -71,6 +72,7 @@ export const schema: SchemaPluginOptions = {
 		customHtml,
 		heroSplit,
 		heroVideo,
+		heroVideoZoomGrid,
 		logoList,
 		personList,
 		prose,

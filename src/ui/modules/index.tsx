@@ -1,4 +1,4 @@
-import { createDataAttribute, stegaClean } from 'next-sanity'
+import { stegaClean } from 'next-sanity'
 import type {
 	BLOG_POST_QUERY_RESULT,
 	ModuleAttributes,
@@ -14,6 +14,7 @@ import CardList from './card-list'
 import CustomHTML from './custom-html'
 import HeroSplit from './hero.split'
 import HeroVideo from './hero.video'
+import HeroVideoZoomGrid from './hero.video-zoom-grid'
 import LogoList from './logo-list'
 import PersonList from './person-list'
 import Prose from './prose'
@@ -33,6 +34,7 @@ const MODULES_MAP = {
 	'custom-html': CustomHTML,
 	'hero.split': HeroSplit,
 	'hero.video': HeroVideo,
+	'hero.video-zoom-grid': HeroVideoZoomGrid,
 	'logo-list': LogoList,
 	'person-list': PersonList,
 	prose: Prose,
@@ -73,25 +75,10 @@ export default function ({
 
 				if (!Module) return null
 
-				const attributes = page
-					? {
-							id: page._id,
-							type: page._type,
-							path: `page[_key == "${module._key}"]`,
-						}
-					: post
-						? {
-								id: post._id,
-								type: post._type,
-								path: `post[_key == "${module._key}"]`,
-							}
-						: {}
-
 				return (
 					<Module
 						{...module}
 						{...moduleSpecificProps(module)}
-						data-sanity={createDataAttribute(attributes)}
 						key={module._key}
 					/>
 				)

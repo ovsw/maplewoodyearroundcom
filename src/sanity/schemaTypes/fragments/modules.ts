@@ -14,6 +14,7 @@ export default ({ of = [] }: { of?: Array<{ type: string }> } = {}) =>
 			{ type: 'custom-html' },
 			{ type: 'hero.split' },
 			{ type: 'hero.video' },
+			{ type: 'hero.video-zoom-grid' },
 			{ type: 'logo-list' },
 			{ type: 'person-list' },
 			{ type: 'prose' },

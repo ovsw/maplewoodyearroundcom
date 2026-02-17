@@ -82,6 +82,12 @@ export const MODULES_QUERY = groq`
 			link{ ${LINK_QUERY} }
 		}
 	},
+	_type == 'hero.video-zoom-grid' => {
+		ctas[]{
+			...,
+			link{ ${LINK_QUERY} }
+		}
+	},
 	_type == 'logo-list' => {
 		logos[]{
 			...,
