@@ -1,32 +1,38 @@
-import { stegaClean } from 'next-sanity'
-import type { Cta } from '@/sanity/types'
+import { PortableText, stegaClean, type PortableTextComponents } from 'next-sanity'
+import type { HeroVideo } from '@/sanity/types'
 import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 import { moduleAttributes, type ModuleProps } from '.'
 
-type HeroVideo = ModuleProps & {
-	_type?: 'hero.video'
-	heading?: string
-	highlightText?: string
-	description?: string
-	ctas?: (Cta & { _key?: string })[]
-	videoMp4Url?: string
-	videoWebmUrl?: string
-	posterUrl?: string
-	overlayOpacity?: number
-}
+type HeroVideoModule = ModuleProps &
+	Omit<HeroVideo, 'heading'> & {
+		heading?: HeroVideo['heading'] | string
+	}
 
 const CTA_BASE_CLASS =
 	'inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors duration-200'
 
 const CTA_STYLE_CLASSES = [
-	`${CTA_BASE_CLASS} bg-white text-slate-900 hover:bg-white/90`,
-	`${CTA_BASE_CLASS} border border-white/80 text-white hover:bg-white/10`,
+	`${CTA_BASE_CLASS} bg-brand-foreground text-brand-foreground-strong hover:bg-brand-foreground/90`,
+	`${CTA_BASE_CLASS} border border-brand-foreground/80 text-brand-foreground hover:bg-brand-foreground/10`,
 ]
 
-function getHeading({
+const HEADING_PORTABLE_TEXT_COMPONENTS: PortableTextComponents = {
+	block: {
+		normal: ({ children }) => <>{children}</>,
+	},
+	marks: {
+		highlight: ({ children }) => (
+			<span className="text-brand-highlight">{children}</span>
+		),
+	},
+}
+
+function getLegacyHeading({
 	heading,
 	highlightText,
-}: Pick<HeroVideo, 'heading' | 'highlightText'>) {
+}: Pick<HeroVideoModule, 'heading' | 'highlightText'>) {
+	if (typeof heading !== 'string') return null
+
 	const cleanHeading = stegaClean(heading)
 	const cleanHighlightText = stegaClean(highlightText)
 
@@ -34,26 +40,46 @@ function getHeading({
 
 	if (!cleanHighlightText || !cleanHeading.includes(cleanHighlightText)) {
 		return (
-			<h1 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-				{cleanHeading}
-				{cleanHighlightText ? (
+			<h1 className="text-brand-foreground text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+				{heading}
+				{highlightText ? (
 					<>
 						<br />
-						<span className="text-amber-300">{cleanHighlightText}</span>
+						<span className="text-brand-highlight">{highlightText}</span>
 					</>
 				) : null}
 			</h1>
 		)
 	}
 
-	const [before, ...rest] = cleanHeading.split(cleanHighlightText)
-	const after = rest.join(cleanHighlightText)
+	const [before, ...rest] = heading.split(highlightText!)
+	const after = rest.join(highlightText!)
 
 	return (
-		<h1 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+		<h1 className="text-brand-foreground text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl">
 			{before}
-			<span className="text-amber-300">{cleanHighlightText}</span>
+			<span className="text-brand-highlight">{cleanHighlightText}</span>
 			{after}
+		</h1>
+	)
+}
+
+function getHeading({
+	heading,
+	highlightText,
+}: Pick<HeroVideoModule, 'heading' | 'highlightText'>) {
+	if (typeof heading === 'string') {
+		return getLegacyHeading({ heading, highlightText })
+	}
+
+	if (!heading?.length) return null
+
+	return (
+		<h1 className="text-brand-foreground text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+			<PortableText
+				value={heading}
+				components={HEADING_PORTABLE_TEXT_COMPONENTS}
+			/>
 		</h1>
 	)
 }
@@ -68,7 +94,7 @@ export default function ({
 	posterUrl,
 	overlayOpacity,
 	...props
-}: HeroVideo) {
+}: HeroVideoModule) {
 	const overlayValue =
 		typeof overlayOpacity === 'number'
 			? Math.min(1, Math.max(0, overlayOpacity))
@@ -76,7 +102,7 @@ export default function ({
 
 	return (
 		<section
-			className="relative full-bleed w-screen min-h-screen overflow-hidden"
+			className="full-bleed relative min-h-screen w-screen overflow-hidden"
 			{...moduleAttributes(props)}
 		>
 			{videoMp4Url ? (
@@ -97,7 +123,7 @@ export default function ({
 			) : null}
 
 			<div
-				className="absolute inset-0 bg-slate-950"
+				className="bg-brand-overlay absolute inset-0"
 				style={{ opacity: overlayValue }}
 				aria-hidden
 			/>
@@ -107,8 +133,8 @@ export default function ({
 					{getHeading({ heading, highlightText })}
 
 					{description ? (
-						<p className="mx-auto max-w-3xl text-pretty text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-							{stegaClean(description)}
+						<p className="text-brand-foreground/90 mx-auto max-w-3xl text-base leading-relaxed text-pretty sm:text-lg md:text-xl">
+							{description}
 						</p>
 					) : null}
 

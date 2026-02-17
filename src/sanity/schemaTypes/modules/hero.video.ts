@@ -1,5 +1,6 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 import { VscDeviceCameraVideo } from 'react-icons/vsc'
+import { getBlockText } from '@/lib/utils'
 
 export default defineType({
 	name: 'hero.video',
@@ -19,14 +20,38 @@ export default defineType({
 		}),
 		defineField({
 			name: 'heading',
-			type: 'string',
-			validation: (rule) => rule.required(),
+			description:
+				'Select text and use "Highlight" to color specific words in the heading.',
+			type: 'array',
+			of: [
+				defineArrayMember({
+					type: 'block',
+					styles: [{ title: 'Normal', value: 'normal' }],
+					lists: [],
+					marks: {
+						decorators: [
+							{ title: 'Strong', value: 'strong' },
+							{ title: 'Emphasis', value: 'em' },
+							{ title: 'Highlight', value: 'highlight' },
+						],
+						annotations: [],
+					},
+				}),
+			],
+			validation: (rule) => rule.required().min(1).max(1),
 			group: 'content',
 		}),
 		defineField({
 			name: 'highlightText',
-			title: 'Highlighted text',
+			title: 'Highlighted text (deprecated)',
 			type: 'string',
+			deprecated: {
+				reason:
+					'Use highlighted spans directly in the heading field with the Highlight decorator.',
+			},
+			readOnly: true,
+			hidden: ({ value }) => value === undefined,
+			initialValue: undefined,
 			group: 'content',
 		}),
 		defineField({
@@ -74,12 +99,17 @@ export default defineType({
 	],
 	preview: {
 		select: {
-			title: 'heading',
+			heading: 'heading',
 		},
-		prepare: ({ title }) => ({
-			title: title || 'Video hero',
-			subtitle: 'Hero (video)',
-			media: VscDeviceCameraVideo,
-		}),
+		prepare: ({ heading }) => {
+			const title =
+				typeof heading === 'string' ? heading : getBlockText(heading)
+
+			return {
+				title: title || 'Video hero',
+				subtitle: 'Hero (video)',
+				media: VscDeviceCameraVideo,
+			}
+		},
 	},
 })
