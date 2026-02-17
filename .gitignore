@@ -53,3 +53,5 @@ dist/
 
 # resources
 /resources/
+# next-agents-md
+.next-docs/
