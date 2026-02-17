@@ -76,6 +76,12 @@ export const MODULES_QUERY = groq`
 			}
 		}
 	},
+	_type == 'hero.video' => {
+		ctas[]{
+			...,
+			link{ ${LINK_QUERY} }
+		}
+	},
 	_type == 'logo-list' => {
 		logos[]{
 			...,

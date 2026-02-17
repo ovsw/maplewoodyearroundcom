@@ -13,6 +13,7 @@ import Callout from './callout'
 import CardList from './card-list'
 import CustomHTML from './custom-html'
 import HeroSplit from './hero.split'
+import HeroVideo from './hero.video'
 import LogoList from './logo-list'
 import PersonList from './person-list'
 import Prose from './prose'
@@ -31,6 +32,7 @@ const MODULES_MAP = {
 	'card-list': CardList,
 	'custom-html': CustomHTML,
 	'hero.split': HeroSplit,
+	'hero.video': HeroVideo,
 	'logo-list': LogoList,
 	'person-list': PersonList,
 	prose: Prose,
