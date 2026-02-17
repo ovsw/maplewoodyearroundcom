@@ -20,6 +20,7 @@ import callout from './modules/callout'
 import cardList from './modules/card-list'
 import customHtml from './modules/custom-html'
 import heroSplit from './modules/hero.split'
+import heroVideo from './modules/hero.video'
 import logoList from './modules/logo-list'
 import personList from './modules/person-list'
 import prose from './modules/prose'
@@ -69,6 +70,7 @@ export const schema: SchemaPluginOptions = {
 		cardList,
 		customHtml,
 		heroSplit,
+		heroVideo,
 		logoList,
 		personList,
 		prose,

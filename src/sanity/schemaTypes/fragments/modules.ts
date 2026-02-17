@@ -13,6 +13,7 @@ export default ({ of = [] }: { of?: Array<{ type: string }> } = {}) =>
 			{ type: 'card-list' },
 			{ type: 'custom-html' },
 			{ type: 'hero.split' },
+			{ type: 'hero.video' },
 			{ type: 'logo-list' },
 			{ type: 'person-list' },
 			{ type: 'prose' },
