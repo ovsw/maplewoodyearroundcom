@@ -127,7 +127,6 @@ export default function HeroVideoZoomGrid({
 				: desktopCenterTargetRef.current
 			if (!sticky || !target || !center) return
 
-			const stickyRect = sticky.getBoundingClientRect()
 			const targetRect = target.getBoundingClientRect()
 			const centerRect = center.getBoundingClientRect()
 

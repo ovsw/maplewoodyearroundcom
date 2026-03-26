@@ -1,6 +1,6 @@
 import { defineField } from 'sanity'
 
-export default ({ of = [] }: { of?: Array<{ type: string }> } = {}) =>
+const modules = ({ of = [] }: { of?: Array<{ type: string }> } = {}) =>
 	defineField({
 		name: 'modules',
 		type: 'array',
@@ -35,3 +35,5 @@ export default ({ of = [] }: { of?: Array<{ type: string }> } = {}) =>
 			},
 		},
 	})
+
+export default modules

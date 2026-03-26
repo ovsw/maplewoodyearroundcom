@@ -1,7 +1,7 @@
 /**
  * @description Return the text of a block type as a single string. Use in schema previews.
  */
-export default function (
+export default function getBlockText(
 	block?: {
 		children?: {
 			text: string

@@ -1,5 +1,4 @@
 import { ROUTES } from '@/lib/env'
-import { getBlockText } from '@/lib/utils'
 import { urlFor } from '@/sanity/lib/image'
 import type { BLOG_POST_QUERY_RESULT } from '@/sanity/types'
 

@@ -5,7 +5,7 @@ import { sanityFetchLive } from '@/sanity/lib/live'
 
 export const dynamic = 'force-dynamic'
 
-export default async function (): Promise<MetadataRoute.Sitemap> {
+export default async function Sitemap(): Promise<MetadataRoute.Sitemap> {
 	const data = await sanityFetchLive<{
 		pages: MetadataRoute.Sitemap
 		posts: MetadataRoute.Sitemap

@@ -11,7 +11,7 @@ export default function useMatchMedia(query: string) {
 		handleMatchMedia()
 		window.addEventListener('resize', handleMatchMedia)
 		return () => window.removeEventListener('resize', handleMatchMedia)
-	}, [isMatch])
+	}, [query])
 
 	return isMatch
 }
