@@ -4,7 +4,7 @@ import { useQueryState } from 'nuqs'
 import { ROUTES } from '@/lib/env'
 import type { SearchModule } from '@/sanity/types'
 
-export default function ({ scope }: { scope: SearchModule['scope'] }) {
+export default function GoogleResults({ scope }: { scope: SearchModule['scope'] }) {
 	const [query] = useQueryState('query')
 
 	const href = [

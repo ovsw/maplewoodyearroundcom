@@ -4,21 +4,41 @@ import { stegaClean } from 'next-sanity'
 import NextImage, { getImageProps, type ImageProps } from 'next/image'
 import { preload } from 'react-dom'
 import { urlFor } from '@/sanity/lib/image'
-import type {
-	SanityImageAsset,
-	SanityImageCrop,
-	SanityImageHotspot,
-} from '@/sanity/types'
 
-type Image =
-	| {
-			asset: SanityImageAsset
-			crop?: SanityImageCrop
-			hotspot?: SanityImageHotspot
-	  }
-	| any
+type ImageAsset = {
+	_ref?: string
+	_type?: string
+	url?: string
+	path?: string
+	metadata?: {
+		lqip?: string
+	} | null
+}
 
-export default function ({
+type DimensionsSource = Parameters<typeof getImageDimensions>[0]
+type UrlSource = Parameters<typeof urlFor>[0]
+type ImageCrop = {
+	left?: number
+	bottom?: number
+	right?: number
+	top?: number
+}
+type ImageHotspot = {
+	width?: number
+	height?: number
+	x?: number
+	y?: number
+}
+
+type Image = {
+	asset?: ImageAsset | null
+	alt?: string | null
+	loading?: ImageProps['loading'] | null
+	crop?: ImageCrop
+	hotspot?: ImageHotspot
+} | null
+
+export default function Img({
 	image,
 	width,
 	height,
@@ -28,29 +48,32 @@ export default function ({
 	image?: Image
 	imageOptions?: Partial<ImageUrlBuilderOptionsWithAliases>
 } & Omit<ImageProps, 'src'>) {
-	if (!image?.asset) return null
+	if (!image || typeof image !== 'object' || !('asset' in image) || !image.asset) {
+		return null
+	}
 
 	const { lqip } = image.asset.metadata ?? {}
 
-	const dimensions = getImageDimensions(image)
+	const dimensions = getImageDimensions(image as DimensionsSource)
 	const [w, h] = [
 		(image.hotspot?.width ?? 1) * dimensions.width,
 		(image.hotspot?.height ?? 1) * dimensions.height,
 	]
 
-	const loading = stegaClean(props.loading || image.loading)
+	const imageLoading =
+		props.loading ?? ('loading' in image ? stegaClean(image.loading) : undefined)
 
 	return (
 		<NextImage
 			src={
-				urlFor(image)
+				urlFor(image as UrlSource)
 					.withOptions({ auto: 'format', q: 100, ...imageOptions })
 					.url() ?? image.asset.url!
 			}
 			width={width ?? Math.round(height ? (Number(height) * w) / h : w)}
 			height={height ?? Math.round(width ? (Number(width) * h) / w : h)}
-			loading={loading}
-			{...(loading === 'eager'
+			loading={imageLoading ?? undefined}
+			{...(imageLoading === 'eager'
 				? { priority: true, fetchPriority: 'high' }
 				: {})}
 			placeholder={lqip ? 'blur' : undefined}
@@ -71,7 +94,9 @@ export function Source({
 	image: Image
 	options?: ImageUrlBuilderOptionsWithAliases
 } & React.ComponentProps<'source'>) {
-	if (!image?.asset) return null
+	if (!image || typeof image !== 'object' || !('asset' in image) || !image.asset) {
+		return null
+	}
 
 	const { src, width, height } = generateSrc(
 		image,
@@ -81,7 +106,7 @@ export function Source({
 	)
 	const { props: imageProps } = getImageProps({ src, width, height, alt: '' })
 
-	if (stegaClean(image.loading) === 'eager') {
+	if ('loading' in image && stegaClean(image.loading) === 'eager') {
 		preload(imageProps.src, { as: 'image' })
 	}
 
@@ -102,7 +127,13 @@ function generateSrc(
 	h?: number | `${number}` | string,
 	options?: ImageUrlBuilderOptionsWithAliases,
 ) {
-	const { width: w_orig, height: h_orig } = getImageDimensions(image)
+	if (!image) {
+		throw new Error('generateSrc requires an image')
+	}
+
+	const { width: w_orig, height: h_orig } = getImageDimensions(
+		image as DimensionsSource,
+	)
 
 	const w_calc = !!w // if width is provided
 		? Number(w)
@@ -115,7 +146,7 @@ function generateSrc(
 			!!w && Math.floor((Number(w) * h_orig) / w_orig)
 
 	return {
-		src: urlFor(image)
+		src: urlFor(image as UrlSource)
 			.withOptions({
 				width: !!w ? Number(w) : undefined,
 				height: !!h ? Number(h) : undefined,

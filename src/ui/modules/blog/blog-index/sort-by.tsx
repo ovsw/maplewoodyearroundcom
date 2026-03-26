@@ -2,7 +2,7 @@
 
 import { SORT_BY_OPTIONS, useBlogIndexStore } from './store'
 
-export default function () {
+export default function SortBy() {
 	const { setSortBy } = useBlogIndexStore()
 
 	return (
@@ -11,7 +11,9 @@ export default function () {
 
 			<select
 				className="ghost cursor-pointer text-left"
-				onChange={(e) => setSortBy(e.target.value as any)}
+				onChange={(e) =>
+					setSortBy(e.target.value as (typeof SORT_BY_OPTIONS)[number]['value'])
+				}
 			>
 				{SORT_BY_OPTIONS.map((option) => (
 					<option value={option.value} key={option.value}>

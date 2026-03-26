@@ -4,7 +4,7 @@ import Logo from '@/ui/logo'
 import SocialNavigation from '@/ui/social-navigation'
 import Navigation from './navigation'
 
-export default async function () {
+export default async function Footer() {
 	const site = await getSite()
 
 	return (

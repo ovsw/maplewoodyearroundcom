@@ -8,7 +8,7 @@ import Byline from './byline'
 import Categories from './categories'
 import Date from './date'
 
-export default function ({
+export default function PostPreview({
 	post,
 	className,
 }: { post: BlogPost } & React.ComponentProps<'li'>) {

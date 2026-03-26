@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import type { Cta } from '@/sanity/types'
 import SanityLink, { type SanityLinkType } from './sanity-link'
 
-export default function ({
+export default function CtaList({
 	ctas,
 	className,
 }: {

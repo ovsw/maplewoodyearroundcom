@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { getSite } from '@/sanity/lib/queries'
 import Img from './img'
 
-export default async function ({
+export default async function Logo({
 	variant: style = 'default',
 	className,
 }: {

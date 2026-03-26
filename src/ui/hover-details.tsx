@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useState, type ComponentProps } from 'react'
+import { useState, type ComponentProps } from 'react'
 import { useIsDesktop } from '@/hooks/useMatchMedia'
 import { cn } from '@/lib/utils'
 import css from './hover-details.module.css'
@@ -10,7 +10,7 @@ import css from './hover-details.module.css'
  * @param safeAreaOnHover - Adds a safe area around the details element to prevent it from closing when the mouse leaves the element
  * @param closeAfterNavigate - Closes the details element after a navigation event
  */
-export default function ({
+export default function HoverDetails({
 	safeAreaOnHover,
 	closeAfterNavigate,
 	delay,
@@ -41,17 +41,13 @@ export default function ({
 			}
 		: {}
 
-	// Close after navigation
 	const pathname = usePathname()
-	useEffect(() => {
-		if (closeAfterNavigate) setOpen(false)
-	}, [pathname])
 
 	return (
 		<details
 			className={cn(safeAreaOnHover && css.safearea, className)}
 			open={open}
-			key={String(open)}
+			key={closeAfterNavigate ? pathname : undefined}
 			{...events}
 			{...props}
 		/>

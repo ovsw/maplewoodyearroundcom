@@ -2,7 +2,7 @@ import { PortableText } from 'next-sanity'
 import type { Person, PersonList } from '@/sanity/types'
 import Img from '@/ui/img'
 
-export default function ({ intro = [], people }: PersonList) {
+export default function PersonList({ intro = [], people }: PersonList) {
 	return (
 		<section className="section space-y-8">
 			<header className="prose">

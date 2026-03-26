@@ -12,7 +12,7 @@ import {
 import { getSite } from '@/sanity/lib/queries'
 import SanityLink, { type SanityLinkType } from './sanity-link'
 
-export default async function (props: React.ComponentProps<'nav'>) {
+export default async function SocialNavigation(props: React.ComponentProps<'nav'>) {
 	const site = await getSite()
 
 	return (

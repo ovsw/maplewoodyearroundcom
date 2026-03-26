@@ -3,7 +3,7 @@ import { sanityFetchLive } from '@/sanity/lib/live'
 import { CATEGORIES_QUERY_RESULT } from '@/sanity/types'
 import Filter from './filter'
 
-export default async function () {
+export default async function FilterList() {
 	const categories = await sanityFetchLive<CATEGORIES_QUERY_RESULT>({
 		query: CATEGORIES_QUERY,
 	})

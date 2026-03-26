@@ -4,7 +4,7 @@ import type { CardList } from '@/sanity/types'
 import CTAList from '@/ui/cta-list'
 import Img from '@/ui/img'
 
-export default function ({ intro = [], cards, ctas, columns }: CardList) {
+export default function CardList({ intro = [], cards, ctas, columns }: CardList) {
 	return (
 		<section className="section space-y-8">
 			{intro && (

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, type ComponentProps } from 'react'
 import { cn, slug } from '@/lib/utils'
 import css from './toc-item.module.css'
 
-export default function ({
+export default function TocItem({
 	heading,
 	...props
 }: {
@@ -14,10 +14,12 @@ export default function ({
 		text: string | null
 	}
 } & ComponentProps<'li'>) {
-	if (!heading.text) return null
-
 	const ref = useRef<HTMLLIElement>(null)
 	const [thresholdHeight, setThresholdHeight] = useState(0)
+	const headingText = heading.text
+	const anchorId = headingText
+		? slug(headingText, { removeLeadingNumberAndHyphen: true })
+		: null
 
 	// threshold height = 1/2 of viewport
 	useEffect(() => {
@@ -31,13 +33,12 @@ export default function ({
 
 	// add className when heading is in view
 	useEffect(() => {
-		if (typeof document === 'undefined' || !ref.current || !heading.text) return
+		if (typeof document === 'undefined' || !ref.current || !anchorId) return
 
 		const target = ref.current
 			.closest('[data-module]')
-			?.querySelector(
-				`#${slug(heading.text, { removeLeadingNumberAndHyphen: true })}`,
-			)!
+			?.querySelector(`#${anchorId}`)
+		if (!target) return
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -55,14 +56,16 @@ export default function ({
 			},
 		)
 
-		if (target) observer.observe(target)
+		observer.observe(target)
 		return () => observer.disconnect()
-	}, [heading, thresholdHeight])
+	}, [anchorId, thresholdHeight])
+
+	if (!headingText || !anchorId) return null
 
 	return (
 		<li className="border-stroke border-l" ref={ref} {...props}>
 			<a
-				href={`#${slug(heading.text, { removeLeadingNumberAndHyphen: true })}`}
+				href={`#${anchorId}`}
 				className={cn('text-foreground block py-1 leading-tight', {
 					'pl-ch': stegaClean(heading.style) === 'h2',
 					'pl-[2ch]': stegaClean(heading.style) === 'h3',
@@ -71,7 +74,7 @@ export default function ({
 					'pl-[5ch]': stegaClean(heading.style) === 'h6',
 				})}
 			>
-				{heading.text}
+				{headingText}
 			</a>
 		</li>
 	)

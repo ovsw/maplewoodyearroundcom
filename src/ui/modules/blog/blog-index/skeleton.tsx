@@ -1,4 +1,4 @@
-export default function ({ postsPerPage }: { postsPerPage: number }) {
+export default function Skeleton({ postsPerPage }: { postsPerPage: number }) {
 	return (
 		<>
 			{/* post-preview-large */}

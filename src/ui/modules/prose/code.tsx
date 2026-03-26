@@ -1,12 +1,12 @@
 import { stegaClean } from 'next-sanity'
 import type { ComponentProps } from 'react'
-import { bundledThemes, codeToHtml, splitLines } from 'shiki'
+import { bundledLanguages, bundledThemes, codeToHtml, splitLines } from 'shiki'
 import { cn } from '@/lib/utils'
 import type { Code } from '@/sanity/types'
 import ClickToCopy from '@/ui/click-to-copy'
 import css from './code.module.css'
 
-export default async function ({
+export default async function Code({
 	value,
 	theme = 'dark-plus',
 	className,
@@ -17,7 +17,7 @@ export default async function ({
 	if (!value?.code) return null
 
 	const html = await codeToHtml(stegaClean(value.code), {
-		lang: value.language as any,
+		lang: value.language as keyof typeof bundledLanguages,
 		theme,
 		decorations: value.highlightedLines
 			?.map((row) => ({

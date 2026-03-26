@@ -3,7 +3,7 @@ import { ROUTES } from '@/lib/env'
 import { cn } from '@/lib/utils'
 import type { BlogCategory } from '@/sanity/types'
 
-export default function ({
+export default function Categories({
 	categories,
 	className,
 	linked,

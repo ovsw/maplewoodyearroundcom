@@ -2,7 +2,7 @@
 
 import { useSearchStore } from './store'
 
-export default function ({ query }: { query: string }) {
+export default function SearchResults({ query }: { query: string }) {
 	const { results } = useSearchStore()
 
 	if (!results.length) return null

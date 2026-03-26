@@ -1,12 +1,21 @@
+import type { TypedObject } from '@portabletext/types'
 import { PortableText } from 'next-sanity'
-import type { QuoteList } from '@/sanity/types'
+import type { Quote, QuoteList } from '@/sanity/types'
 import Img from '@/ui/img'
 
-export default function ({
+type QuoteTestimonial = {
+	_key: string
+	quote?: TypedObject[]
+	author?: Quote['author']
+}
+
+export default function QuoteList({
 	intro = [],
 	testimonials,
 	_key,
 }: QuoteList & { _key: string }) {
+	const items = testimonials as QuoteTestimonial[] | undefined
+
 	return (
 		<section className="section space-y-8">
 			{intro && (
@@ -19,14 +28,16 @@ export default function ({
 				className="carousel max-md:full-bleed items-stretch gap-8 pb-2 max-md:px-4 md:mask-r-from-[calc(100%-2rem)] md:pr-4"
 				data-anchor-name={`--quote-list-${_key}`}
 			>
-				{testimonials?.map((testimonial: any) => (
+				{items?.map((testimonial) => (
 					<li
 						className="flex flex-col gap-4 md:snap-start"
 						key={testimonial._key}
 					>
-						<blockquote className="prose grow">
-							<PortableText value={testimonial.quote} />
-						</blockquote>
+						{testimonial.quote && (
+							<blockquote className="prose grow">
+								<PortableText value={testimonial.quote} />
+							</blockquote>
+						)}
 
 						{testimonial.author?.name && (
 							<cite className="flex items-center gap-2">

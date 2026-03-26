@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import type { AccordionList } from '@/sanity/types'
 import CTAList from '@/ui/cta-list'
 
-export default function ({
+export default function AccordionList({
 	_key: _module_key,
 	intro,
 	ctas,

@@ -3,15 +3,15 @@ import { Suspense } from 'react'
 import { ROUTES } from '@/lib/env'
 import { cn } from '@/lib/utils'
 import { sanityFetchLive } from '@/sanity/lib/live'
-import type { BlogIndex } from '@/sanity/types'
+import type { BLOG_INDEX_QUERY_RESULT, BlogIndex } from '@/sanity/types'
 import Loading from '@/ui/loading'
 import FilterList from '@/ui/modules/blog/filter-list'
 import PaginatedPosts from './paginated-posts'
 import Skeleton from './skeleton'
 import SortBy from './sort-by'
 
-export default async function ({ intro, postsPerPage = 6 }: BlogIndex) {
-	const posts = await sanityFetchLive<any>({
+export default async function BlogIndex({ intro, postsPerPage = 6 }: BlogIndex) {
+	const posts = await sanityFetchLive<BLOG_INDEX_QUERY_RESULT>({
 		query: BLOG_INDEX_QUERY,
 		params: { blogDir: `/${ROUTES.blog}/` },
 	})

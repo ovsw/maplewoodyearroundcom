@@ -4,7 +4,7 @@ import type { SearchModule } from '@/sanity/types'
 import Loading from '@/ui/loading'
 import SearchForm from './search-form'
 
-export default function ({ intro = [], scope }: SearchModule) {
+export default function Search({ intro = [], scope }: SearchModule) {
 	return (
 		<section className="section">
 			<div className="mx-auto max-w-2xl space-y-8">

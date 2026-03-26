@@ -20,7 +20,7 @@ import Date from './date'
 import ReadTime from './read-time'
 import Schema from './schema'
 
-export default function ({
+export default function BlogPostContent({
 	post,
 	tableOfContents,
 	...props

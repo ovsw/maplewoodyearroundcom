@@ -2,7 +2,7 @@ import { PortableText } from 'next-sanity'
 import type { StepList } from '@/sanity/types'
 import CTAList from '@/ui/cta-list'
 
-export default function ({
+export default function StepList({
 	intro = [],
 	ctas,
 	steps,

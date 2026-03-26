@@ -3,7 +3,7 @@ import type { LinkList as LinkListType } from '@/sanity/types'
 import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 import LinkList from './link.list'
 
-export default async function () {
+export default async function Navigation() {
 	const site = await getSite()
 
 	return (

@@ -1,6 +1,6 @@
 'use client'
 
-export default function ({ code }: { code?: string }) {
+export default function Css({ code }: { code?: string }) {
 	if (!code) return null
 
 	return (

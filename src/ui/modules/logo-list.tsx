@@ -4,7 +4,7 @@ import type { Logo, LogoList } from '@/sanity/types'
 import Img from '@/ui/img'
 import css from './logo-list.module.css'
 
-export default function ({
+export default function LogoList({
 	intro,
 	logos,
 	logoType = 'default',

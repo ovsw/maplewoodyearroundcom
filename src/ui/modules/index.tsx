@@ -44,7 +44,7 @@ const MODULES_MAP = {
 	'step-list': StepList,
 } as const
 
-export default function ({
+export default function Modules({
 	page,
 	post,
 }: {

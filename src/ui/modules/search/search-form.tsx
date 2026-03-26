@@ -9,7 +9,7 @@ import GoogleResults from './google-results'
 import SearchResults from './search-results'
 import { handleSearch, useSearchStore } from './store'
 
-export default function ({ scope }: Partial<SearchModule>) {
+export default function SearchForm({ scope }: Partial<SearchModule>) {
 	const [query, setQuery] = useQueryState('query', { defaultValue: '' })
 	const { loading, setLoading, results, setResults } = useSearchStore()
 
@@ -47,11 +47,11 @@ export default function ({ scope }: Partial<SearchModule>) {
 						) : (
 							<>
 								<p className="b flex justify-center text-center whitespace-nowrap">
-									{count(results, 'result')} found for "
+									{count(results, 'result')} found for &quot;
 									<span className="overflow-hidden break-all text-ellipsis">
 										{query}
 									</span>
-									"
+									&quot;
 								</p>
 
 								<SearchResults query={query} />

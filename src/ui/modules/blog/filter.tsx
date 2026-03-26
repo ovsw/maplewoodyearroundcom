@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import type { BlogCategory } from '@/sanity/types'
 import { useBlogIndexStore } from './blog-index/store'
 
-export default function ({
+export default function Filter({
 	category,
 	children,
 }: {

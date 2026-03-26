@@ -2,7 +2,7 @@ import type { StringInputProps, StringSchemaType } from 'sanity'
 import { Flex, Stack, Text, TextArea, TextInput } from '@sanity/ui'
 import React from 'react'
 
-export default function ({
+export default function CharacterCount({
 	elementProps,
 	as = 'input',
 	max,

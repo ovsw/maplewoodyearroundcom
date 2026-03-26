@@ -4,7 +4,7 @@ import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 import Dropdown from './dropdown'
 import Megamenu from './megamenu'
 
-export default async function () {
+export default async function Navigation() {
 	const site = await getSite()
 
 	return (

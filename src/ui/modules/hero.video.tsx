@@ -84,7 +84,7 @@ function getHeading({
 	)
 }
 
-export default function ({
+export default function HeroVideo({
 	heading,
 	highlightText,
 	description,

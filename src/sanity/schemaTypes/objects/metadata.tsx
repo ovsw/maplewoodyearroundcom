@@ -1,5 +1,12 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, type SanityDocument } from 'sanity'
 import CharacterCount from '@/sanity/ui/character-count'
+
+type MetadataSourceDocument = {
+	title?: string
+	metadata?: {
+		title?: string
+	}
+}
 
 export default defineType({
 	name: 'metadata',
@@ -27,7 +34,10 @@ export default defineType({
 			type: 'slug',
 			description: 'URL path or permalink',
 			options: {
-				source: (doc: any) => doc.title || doc.metadata.title,
+				source: (doc: SanityDocument) => {
+					const sourceDocument = doc as SanityDocument & MetadataSourceDocument
+					return sourceDocument.title || sourceDocument.metadata?.title || ''
+				},
 			},
 			validation: (Rule) => Rule.required(),
 		}),

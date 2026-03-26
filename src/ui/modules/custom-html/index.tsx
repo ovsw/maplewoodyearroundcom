@@ -4,7 +4,7 @@ import { moduleAttributes } from '..'
 import CSS from './css'
 import WithScript from './with-script'
 
-export default function ({ className, html, css, ...props }: CustomHtml) {
+export default function CustomHtml({ className, html, css, ...props }: CustomHtml) {
 	if (!html?.code && !css?.code) return null
 
 	const attributes = {

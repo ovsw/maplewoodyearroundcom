@@ -3,7 +3,7 @@ import type { Callout } from '@/sanity/types'
 import CTAList from '@/ui/cta-list'
 import { moduleAttributes } from '.'
 
-export default function ({ intro = [], ctas, ...props }: Callout) {
+export default function Callout({ intro = [], ctas, ...props }: Callout) {
 	return (
 		<section className="section text-center" {...moduleAttributes(props)}>
 			<header className="prose mx-auto max-w-3xl text-balance">

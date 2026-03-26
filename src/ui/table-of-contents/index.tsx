@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import ToCItem from './toc-item'
 
-export default function ({
+export default function TableOfContents({
 	summary = 'Table of Contents',
 	headings,
 	className,

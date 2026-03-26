@@ -6,7 +6,7 @@ import type { BLOG_INDEX_QUERY_RESULT, BlogPost } from '@/sanity/types'
 import PostPreview from '@/ui/modules/blog/post-preview'
 import PostPreviewLarge from '@/ui/modules/blog/post-preview-large'
 
-export default function ({
+export default function PaginatedPosts({
 	posts,
 	postsPerPage,
 }: {

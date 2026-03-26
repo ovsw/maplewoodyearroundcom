@@ -3,7 +3,7 @@ import type { Breadcrumbs, Page } from '@/sanity/types'
 import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 import { moduleAttributes } from '.'
 
-export default function ({
+export default function Breadcrumbs({
 	crumbs,
 	currentPage,
 	...props

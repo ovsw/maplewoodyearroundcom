@@ -1,6 +1,6 @@
 import { VscChromeClose, VscMenu } from 'react-icons/vsc'
 
-export default function () {
+export default function MobileToggle() {
 	return (
 		<label className="text-xl md:hidden">
 			<input id="header-open" type="checkbox" hidden />

@@ -1,17 +1,17 @@
 import { groq, PortableText } from 'next-sanity'
 import { ROUTES } from '@/lib/env'
 import { sanityFetchLive } from '@/sanity/lib/live'
-import type { BlogPost, BlogPostList } from '@/sanity/types'
+import type { BLOG_POST_LIST_QUERY_RESULT, BlogPostList } from '@/sanity/types'
 import CTAList from '@/ui/cta-list'
 import PostPreview from './post-preview'
 
-export default async function ({
+export default async function BlogPostList({
 	intro = [],
 	ctas,
 	limit = 6,
 	_key,
 }: BlogPostList & { _key: string }) {
-	const posts = await sanityFetchLive<any>({
+	const posts = await sanityFetchLive<BLOG_POST_LIST_QUERY_RESULT>({
 		query: BLOG_POST_LIST_QUERY,
 		params: { limit, blogDir: `/${ROUTES.blog}/` },
 	})
@@ -28,10 +28,10 @@ export default async function ({
 				className="carousel max-md:full-bleed items-start gap-4 pb-2 max-md:px-4 md:mask-r-from-[calc(100%-2rem)] md:pr-4"
 				data-anchor-name={`--blog-post-list-${_key}`}
 			>
-				{posts?.map((post: any) => (
+				{posts?.map((post) => (
 					<PostPreview
 						className="md:snap-start"
-						post={post as unknown as BlogPost}
+						post={post as unknown as import('@/sanity/types').BlogPost}
 						key={post._id}
 					/>
 				))}

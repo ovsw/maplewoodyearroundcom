@@ -5,7 +5,7 @@ import CTAList from '@/ui/cta-list'
 import Img from '@/ui/img'
 import { moduleAttributes } from '.'
 
-export default function ({ content = [], ctas, image, ...props }: HeroSplit) {
+export default function HeroSplit({ content = [], ctas, image, ...props }: HeroSplit) {
 	return (
 		<section
 			className="section grid items-center gap-8 md:grid-cols-2"

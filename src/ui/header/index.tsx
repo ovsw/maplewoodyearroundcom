@@ -8,7 +8,7 @@ import MobileToggle from './mobile-toggle'
 import Navigation from './navigation'
 import Wrapper from './wrapper'
 
-export default async function () {
+export default async function Header() {
 	const site = await getSite()
 
 	return (

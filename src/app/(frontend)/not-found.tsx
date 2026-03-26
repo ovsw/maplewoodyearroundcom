@@ -5,7 +5,7 @@ import { MODULES_QUERY } from '@/sanity/lib/queries'
 import type { NOT_FOUND_QUERY_RESULT } from '@/sanity/types'
 import ModulesResolver from '@/ui/modules'
 
-export default async function () {
+export default async function NotFound() {
 	const page = await getPage()
 	return <ModulesResolver page={page} />
 }

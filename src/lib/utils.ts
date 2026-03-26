@@ -26,7 +26,7 @@ export function slug(
 	return result
 }
 
-export function count<T = any>(
+export function count<T = unknown>(
 	arr: T[] | number,
 	singular: string = 'item',
 	plural?: string,
@@ -35,13 +35,13 @@ export function count<T = any>(
 	return `${n} ${n === 1 ? singular : plural || singular + 's'}`
 }
 
-export function debounce<T extends (...args: any[]) => void>(
-	fn: T,
+export function debounce<TThis, TArgs extends unknown[]>(
+	fn: (this: TThis, ...args: TArgs) => void,
 	delay: number = 1000, // 1 sec
-): (...args: Parameters<T>) => void {
+): (this: TThis, ...args: TArgs) => void {
 	let timeoutId: NodeJS.Timeout | null = null
 
-	return function (this: any, ...args: Parameters<T>) {
+	return function (this: TThis, ...args: TArgs) {
 		if (timeoutId) clearTimeout(timeoutId)
 		timeoutId = setTimeout(() => fn.apply(this, args), delay)
 	}

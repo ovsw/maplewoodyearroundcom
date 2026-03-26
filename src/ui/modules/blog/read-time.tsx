@@ -1,6 +1,6 @@
 import { count } from '@/lib/utils'
 
-export default function ({
+export default function ReadTime({
 	value,
 	...props
 }: { value: number } & React.ComponentProps<'span'>) {

@@ -1,7 +1,7 @@
 import { VscLoading } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
 
-export default function ({
+export default function Loading({
 	className,
 	children,
 }: React.ComponentProps<'aside'>) {

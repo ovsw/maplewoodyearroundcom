@@ -13,7 +13,7 @@ type Props = {
 	params: Promise<{ slug: string }>
 }
 
-export default async function ({ params }: Props) {
+export default async function Page({ params }: Props) {
 	const { slug } = await params
 	const post = await getPost(slug)
 	if (!post) notFound()

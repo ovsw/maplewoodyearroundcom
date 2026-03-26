@@ -7,7 +7,7 @@ export type SanityLinkType = Omit<Link, 'internal'> & {
 	internal?: Omit<Page, 'metadata'> & { slug: string }
 }
 
-export default function ({
+export default function SanityLink({
 	link,
 	children,
 	...props

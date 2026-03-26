@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import type { Person } from '@/sanity/types'
 import Img from '@/ui/img'
 
-export default function ({
+export default function Byline({
 	author,
 	className,
 }: { author: Person } & React.ComponentProps<'div'>) {

@@ -3,7 +3,7 @@ import HoverDetails from '@/ui/hover-details'
 import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 import MobileOnlyDetails from './mobile-only-details'
 
-export default function ({ link, items }: Megamenu) {
+export default function Megamenu({ link, items }: Megamenu) {
 	return (
 		<HoverDetails
 			name="header"

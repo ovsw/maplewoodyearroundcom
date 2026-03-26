@@ -2,7 +2,7 @@ import type { LinkList, Page } from '@/sanity/types'
 import HoverDetails from '@/ui/hover-details'
 import SanityLink, { type SanityLinkType } from '@/ui/sanity-link'
 
-export default function ({ link: summary, links }: LinkList) {
+export default function Dropdown({ link: summary, links }: LinkList) {
 	return (
 		<HoverDetails
 			name="header"
