@@ -1,3 +1,4 @@
+import { createDataAttribute } from '@sanity/visual-editing'
 import { stegaClean } from 'next-sanity'
 import type {
 	BLOG_POST_QUERY_RESULT,
@@ -52,6 +53,11 @@ export default function Modules({
 	post?: BLOG_POST_QUERY_RESULT
 }) {
 	const modules = [page, post].flatMap((item) => item?.modules ?? [])
+	const documentDataAttribute = page
+		? createDataAttribute({ id: page._id, type: page._type })
+		: post
+			? createDataAttribute({ id: post._id, type: post._type })
+			: undefined
 
 	const moduleSpecificProps = (module: ModuleProps) => {
 		switch (module._type) {
@@ -75,13 +81,14 @@ export default function Modules({
 
 				if (!Module) return null
 
-				return (
-					<Module
-						{...module}
-						{...moduleSpecificProps(module)}
-						key={module._key}
-					/>
-				)
+					return (
+						<Module
+							{...module}
+							{...moduleSpecificProps(module)}
+							data-sanity={documentDataAttribute?.(`modules[_key=="${module._key}"]`)}
+							key={module._key}
+						/>
+					)
 			})}
 		</>
 	)
